@@ -5,42 +5,32 @@ import {
   createCanvas,
   loadImage
 } from 'https://deno.land/x/canvas@v1.4.1/mod.ts'
+import { BG_COLORS, drawClothes, drawHair, SKINS } from './const.ts'
 const app = new Hono()
 
-const canvas = createCanvas(500, 500)
+const canvas = createCanvas(600, 600)
 const ctx = canvas.getContext('2d')
-type Selector = {
-  [key: string]: string
-}
-const SKINS: Selector = {
-  1: 'img/skin/skin1.png',
-  2: 'img/skin/skin2.png',
-  3: 'img/skin/skin3.png'
-}
-const BG_COLORS: Selector = {
-  1: '#09f',
-  2: 'green',
-  3: 'red',
-  4: 'yellow',
-  5: '#f5f5f5'
-}
+
 app.use('*', logger())
 
 app.get('/', async (c) => {
-  const { style, hair, skin, bg } = c.req.query()
+  const { clothes, hair, skin, bg, hair_color, clothes_color } = c.req.query()
   // BG-COLOR
   if (bg?.length > 1) {
     ctx.fillStyle = '#' + bg ?? '#161616'
   } else {
     ctx.fillStyle = BG_COLORS[bg] ?? '#161616'
   }
-  ctx.fillRect(0, 0, 500, 500)
+  ctx.fillRect(0, 0, 600, 600)
+
   // SKIN
   const skn = SKINS[skin] ?? 'img/skin/template.png'
   const skinImg = await loadImage(skn)
-  ctx.drawImage(skinImg, 0, 0, 500, 500)
+  ctx.drawImage(skinImg, 0, 0, 600, 600)
+  drawHair(ctx, hair, hair_color)
   // HAIR
   // STYLE
+  drawClothes(ctx, clothes, clothes_color)
   //console.log({ style, hair, skin, bg })
   const resImg = canvas.toBuffer('image/png')
   return c.body(resImg)
