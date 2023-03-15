@@ -36,12 +36,12 @@ export const drawHair = (
   hair: string,
   hair_color: string
 ) => {
-  HAIRS[hair](ctx, hair_color)
+  HAIRS[hair || '1'](ctx, hair_color)
 }
 export const drawClothes = (
   ctx: CanvasRenderingContext2D,
   clothes: string,
   clothes_color: string
 ) => {
-  CLOTHES[clothes](ctx, clothes_color)
+  CLOTHES[clothes || '1'](ctx, clothes_color)
 }
