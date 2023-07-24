@@ -13,7 +13,24 @@ const ctx = canvas.getContext('2d')
 
 app.use('*', logger())
 
-app.get('/', async (c) => {
+app.get('/', (c) => {
+	return c.json({
+		msg: 'Welcome to characters api',
+		endpoints: [
+			'/api/',
+			'/api/character'
+		]
+	})
+})
+
+app.get('/api', (c) => {
+	return c.json({
+		msg: 'Welcome to characters api',
+		endpoint: '/api/character'
+	})
+})
+
+app.get('/api/character', async (c) => {
   const { clothes, hair, skin, bg, hair_color, clothes_color } = c.req.query()
   // BG-COLOR
   if (bg?.length > 1) {
