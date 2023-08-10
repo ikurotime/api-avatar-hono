@@ -1,0 +1,1 @@
+import{_ as e,o as a,c as t,V as r}from"./chunks/framework.77041c7d.js";const p=JSON.parse('{"title":"Characters API","description":"","frontmatter":{},"headers":[],"relativePath":"about.md","filePath":"about.md"}'),o={name:"about.md"},i=r("",6),l=[i];function c(n,s,h,u,_,d){return a(),t("div",null,l)}const b=e(o,[["render",c]]);export{p as __pageData,b as default};
